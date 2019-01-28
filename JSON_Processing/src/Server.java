@@ -1,10 +1,13 @@
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest; 
+import java.security.NoSuchAlgorithmException; 
 
 @WebServlet("/Server")
 public class Server extends HttpServlet {
@@ -17,45 +20,41 @@ public class Server extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String input_text = request.getParameter("input_text").trim();
+		JSONObject jsonObj = new JSONObject(input_text);
+		String message = jsonObj.getString("message");
+		String salt = jsonObj.getString("salt");
+		String hash_function = jsonObj.getString("hash");
+		
+		String hashed = hash(message, salt, hash_function);
+		
+		JSONObject result = new JSONObject(); 
+		result.put("message",message);
+		result.put("salt", salt);
+		result.put("hash", hash_function);
+		result.put("result", hashed);
+		
 
 	    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
 	    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-	    response.getWriter().write(input_text);       // Write response body.
+	    response.getWriter().write(result.toString());       // Write response body.
 	}
 
-
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-////		response.setCharacterEncoding("UTF-8");
-////		request.setCharacterEncoding("UTF-8");
-////		
-////		String name = request.getParameter("name");
-////	
-////		response.setContentType("text/html");
-////		PrintWriter out = response.getWriter();
-////		
-////		out.println("<!DOCTYPE html>");
-////		out.println("<html>");
-////		out.println("<head>");
-////		out.println("<title>Hello world</title>");
-////		out.println("<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">");
-////		out.println("<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>");
-////		out.println("<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js\" integrity=\"sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49\" crossorigin=\"anonymous\"></script>");
-////		out.println("<script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js\" integrity=\"sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy\" crossorigin=\"anonymous\"></script>");
-////		out.println("</head>");
-////		out.println("<body>");
-////		out.println("<div class=\"card\" style=\"width: 18rem;\">");
-////		out.println("<div class=\"card-body\">");
-////		
-////		
-////		out.println("Hello: " + name);
-////		
-////		out.println("</div>");
-////		out.println("</div>");
-////		out.println("</body>");
-////		out.println("</html>");
-////		
-////		out.flush();
-////		out.close();
-//	}
+	public String hash(String message, String salt, String hash_function) {
+		String result="";
+		try {
+	         MessageDigest md = MessageDigest.getInstance(hash_function);
+	         md.update(salt.getBytes(StandardCharsets.UTF_8));
+	         byte[] bytes = md.digest(message.getBytes(StandardCharsets.UTF_8));
+	         StringBuilder sb = new StringBuilder();
+	         for(int i=0; i< bytes.length ;i++){
+	            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	         }
+	         result = sb.toString();
+	        } 
+	       catch (NoSuchAlgorithmException e){
+	        e.printStackTrace();
+	       }
+		return result;
+	}
 
 }
