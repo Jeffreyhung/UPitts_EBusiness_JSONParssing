@@ -15,7 +15,6 @@
                         input_text : text
                 }, function(responseText) {
                     var result_obj = JSON.parse(responseText);
-                    console.log(result_obj);
                     $("#result_section").show();
                     $('#message_result').text(result_obj.message);
                     $('#salt_result').text(result_obj.salt);
@@ -25,66 +24,76 @@
             });
         });
     </script>
+    <style type="text/css">
+        .card {
+            margin: 50 auto;
+            width: 40rem;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="card" style="margin:50px">
-        <div class="card-header">
-            <h3><center>Hash Input</center></h3>
-        </div>
-        <div class="card-body">
-            <form method="post" id="choice">
-                <div class="form-group row">
-                    <label class="col-6 col-form-label"><h4>Message : </h4></label>
-                    <div class="col-6">
-                        <input type="text" value="Message" id="message" required>
+    <!-- <center> -->
+        <div class="card ">
+            <div class="card-header">
+                <h3><center>Hash Input</center></h3>
+            </div>
+            <div class="card-body">
+                <form method="post" id="choice">
+                    <div class="form-group row">
+                        <label class="col-6 col-form-label"><h4>Message : </h4></label>
+                        <div class="col-6">
+                            <input type="text" value="Message" id="message" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-6 col-form-label"><h4>Salt : </h4></label>
-                    <div class="col-6">
-                        <input type="text" value="Salt" id="salt" required>
+                    <div class="form-group row">
+                        <label class="col-6 col-form-label"><h4>Salt : </h4></label>
+                        <div class="col-6">
+                            <input type="text" value="Salt" id="salt" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-6 col-form-label"><h4>Hash Function : </h4></label>
-                    <select class="custom-select col-6" required id="hash">
-                        <option value="MD5">MD5</option>
-                        <option value="SHA-1">SHA-1</option>
-                        <option value="SHA-256">SHA-256</option>
-                    </select>
-                </div>
-                <input class="btn btn-primary" type="submit" value="Submit" id="submit" />
-            </form>
+                    <div class="form-group row">
+                        <label class="col-6 col-form-label"><h4>Hash Function : </h4></label>
+                        <select class="custom-select col-6" required id="hash">
+                            <option value="MD5">MD5</option>
+                            <option value="SHA-1">SHA-1</option>
+                            <option value="SHA-256">SHA-256</option>
+                        </select>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Submit" id="submit" />
+                </form>
+            </div>
         </div>
-    </div>
-    </div>
-    <div class="card" style="display: none; margin:50px" id="result_section">
-        <div class="card-header">
-            <h3><center>Hash Result</center></h3>
         </div>
-        <div class="card-body">
-            <table class="table table-striped">
-                <tbody>
-                    <tr>
-                        <th class="col-sm-2">Message : </th>
-                        <th class="col-sm-10" id="message_result"></th>
-                    </tr>
-                    <tr>
-                        <th class="col-sm-2">Salt : </th>
-                        <th class="col-sm-10" id="salt_result"></th>
-                    </tr>
-                    <tr>
-                        <th class="col-sm-2">Hash Fuction : </th>
-                        <th class="col-sm-10" id="hash_result"></th>
-                    </tr>
-                    <tr>
-                        <th class="col-sm-2">Result : </th>
-                        <th class="col-sm-10" id="result"></th>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="card " style="display: none;" id="result_section">
+            <div class="card-header">
+                <h3><center>Hash Result</center></h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" style="table-layout: fixed; ">
+                    <tbody>
+                        <tr>
+                            <th style="width:25%">Message : </th>
+                            <th style="width:75%" id="message_result"></th>
+                        </tr>
+                        <tr>
+                            <th style="width:25%">Salt : </th>
+                            <th style="width:75%" id="salt_result"></th>
+                        </tr>
+                        <tr>
+                            <th style="width:25%">Hash Fuction : </th>
+                            <th style="width:75%" id="hash_result"></th>
+                        </tr>
+                        <tr>
+                            <th style="width:25%">Result : </th>
+                            <th style="width:75%" id="result"></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    <!-- </center> -->
 </body>
 
 </html>

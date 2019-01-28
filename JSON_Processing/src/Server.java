@@ -15,7 +15,6 @@ public class Server extends HttpServlet {
        
     public Server() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,9 +33,9 @@ public class Server extends HttpServlet {
 		result.put("result", hashed);
 		
 
-	    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-	    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-	    response.getWriter().write(result.toString());       // Write response body.
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(result.toString());
 	}
 
 	public String hash(String message, String salt, String hash_function) {
