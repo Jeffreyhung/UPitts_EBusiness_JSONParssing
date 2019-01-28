@@ -1,11 +1,18 @@
-Develop a server side program using Java servlets that is invoked using AJAX making use of JSON to communicate some user action on a web page and make use of DOM functions and JavaScript to incorporate the results returned by AJAX into the existing page.
-A full array of CSS functionality – demonstrating cascades and use of classes should be implemented.
+JSON Processing Group Project - INSFCI 2730 E-Business
 
+Group Member:
+Xinran Chen xic96@pitt.edu
+Zhifeng Wang zhw81@pitt.edu
+Chi-Heng Hung CHH162@pitt.edu
+Chia-Jung Chang CHC276@pitt.edu
 
-Getting Started Instruction:
+Instruction:
 To install this web applicatoin, visit your Tomcat home page (usually http://localhost:8080/), click on the "Manager App" button on the right of the screen.
 In the "Tomcat Web Application Manager" page, go to the "Deploy" section and under "WAR file to deploy", select the war file from your computer and click the "deploy" button.
 Once the web application is deployed, you should see the "/Hash_App" in the Application section, click on "/Hash_App" and you will be redirected to our Hash App.
 
 In the Hash App, you can input the message you want to hash and the word that you want to use as salt. You can also select the hash function you want to use, which includes MD5, SHA-1 and SHA-256. After finishing input and selection, click on the blue "Submit" button.
 The hash information and hash result will appears under the "Hash Input" section, showing the message, salt you typed, the hash function you selected and the hash result.
+
+Reference: 
+Bootstrap 4.2: https://getbootstrap.com/

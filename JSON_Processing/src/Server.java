@@ -20,19 +20,13 @@ public class Server extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String input_text = request.getParameter("input_text").trim();
 		JSONObject jsonObj = new JSONObject(input_text);
-		String message = jsonObj.getString("message");
-		String salt = jsonObj.getString("salt");
-		String hash_function = jsonObj.getString("hash");
-		
-		String hashed = hash(message, salt, hash_function);
-		
+		String hashed = hash(jsonObj.getString("message"), jsonObj.getString("salt"), jsonObj.getString("hash"));
 		JSONObject result = new JSONObject(); 
-		result.put("message",message);
-		result.put("salt", salt);
-		result.put("hash", hash_function);
+		result.put("message",jsonObj.getString("message"));
+		result.put("salt", jsonObj.getString("salt"));
+		result.put("hash", jsonObj.getString("hash"));
 		result.put("result", hashed);
 		
-
 	    response.setContentType("text/plain");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(result.toString());
